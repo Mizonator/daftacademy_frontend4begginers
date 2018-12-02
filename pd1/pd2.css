@@ -1,11 +1,13 @@
 
 body{
-    max-width: 100%;
+    display:flex;
     background-image: url(6bm_zdjecia/background.svg);
     background-attachment: fixed;
     /*Kolor tła dodany na wypadek gdyby obrazek się nie załadował*/
     background-color: #25072e; 
-    background-size: auto auto;
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: "Open Sans", Arial, Monospace ;
 }
 
 .page-content {
@@ -53,14 +55,7 @@ a{
     
 }
 
-.content-section {
-    box-sizing: content-box;
-    padding-left: 5px;
-    
-}
-
 .content-section__header {
-    font-family: "Open Sans", Arial, Monospace ;
     font-size: 28px;
     letter-spacing: 4.5px;
     text-align: right;
@@ -75,7 +70,6 @@ a{
 
 .band-members__item {
     list-style-type: none;
-    font-family: 'Open Sans', Arial, monospace;
     font-size: 13px;
     color: #ccc8ff;
 }
@@ -102,7 +96,6 @@ a{
 }
 
 .about-section__desc-header {
-    font-family: "Open Sans", Arial, Monospace ;
     font-size: 15px;
     color: #ccc8ff;
     letter-spacing: 3.5px;
@@ -110,7 +103,6 @@ a{
 }
 
 .about-section__desc-paragraph {
-    font-family: "Open Sans", Arial, Monospace;
     font-size: 13px;
     color: #ccc8ff;
     opacity: 0.8; 
@@ -143,7 +135,6 @@ a{
 
 .concerts__info{
     margin: 5px 20px;
-    font-family: "Open Sans", Arial, Monospace ;
     color: #ccc8ff;
     display: flex;
     justify-content: space-between;
@@ -202,7 +193,6 @@ address {
     position: relative;
     top: -150px;
     left: 500px;
-    font-family: "Open Sans", Arial, Monospace;
     font-size: 13px;
     color: #ccc8ff;
     opacity: 0.8; 
@@ -212,7 +202,6 @@ address {
 .form__field {
     padding: 5px;
     margin:10px;
-    font-family: "Open Sans", Arial, Monospace;
     font-size: 13px;
     color: #ccc8ff;
     opacity: 0.8; 
@@ -265,4 +254,3 @@ address {
 .screen-reader-only {
     visibility: hidden;
 }
-
