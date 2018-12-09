@@ -4,12 +4,15 @@ które się różnią w zależności od producenta (np. Chrome, Firefox, Opera, 
 Dlatego popularną praktyką jest tworzenie tzw. resetów, 
 czyli plików CSS zawierających reguły, które nadpisują te wartości, 
 aby były one jednolite niezalenie od przeglądarki.
-
 Więcej na ten temat: https://cssreset.com/what-is-a-css-reset/
 */
 
 * {
     box-sizing: border-box;
+}
+
+::selection {
+    background: purple;
 }
 
 body {
@@ -43,10 +46,8 @@ ul {
 
 /*
 ZAGADNIENIE PONADPROGRAMOWE
-
 Rekomendowany zestaw właściwości, które pozwalają na ukrycie tekstu w taki sposób,
 że będzie niewidoczny do standardowego użytkownika, a czytniki ekranowe wciąż będą go czytać.
-
 Więcej na ten temat: https://webaim.org/techniques/css/invisiblecontent/
 */
 .screen-reader-only {
@@ -88,12 +89,28 @@ PRZYCISKI
     background-color: rgba(204, 200, 255, 0.1);
     border-color: rgba(204, 200, 255, 0.1);
 
-    color: rgba(204, 200, 255, 0.8);
+    color: rgba(204, 200, 255, 1);
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1.6px;
     cursor: pointer;
+
+    transition: all 0.7s ease-in-out;
+}
+
+.button:hover, .button:active {
+    background-color: rgba(204, 200, 255, 0.5);
+    font-family: 'Helvetica', 'OpenSans', monospace;
+}
+
+.button:focus {
+    border-color: rgba(204, 200, 255, 1);
+    background-color: rgba(204, 200, 255, 0.5);
+}
+
+.button:disabled {
+    color: rgba(204, 200, 255, 0.5);
 }
 
 /* 
@@ -198,6 +215,15 @@ NAWIGACJA
     line-height: 30px;
     text-transform: uppercase;
     letter-spacing: 6.7px;
+    transition: all 0.4s ease-in;
+}
+
+.page-navigation__item:hover a{
+    color: rgba(239, 0, 142, 0.8);
+}
+ 
+.page-navigation__item:focus a{
+    color: rgba(239, 0, 142, 1);
 }
 
 @media screen and ( min-width: 1025px ) and ( max-width: 1280px ) {
@@ -223,6 +249,16 @@ LINKI DO SOCIAL MEDIA
 .social-links__item img {
     width: 20px;
     height: 20px;
+    opacity: 0.6;
+    transition: all 0.4s ease-in-out;
+}
+
+.social-links__item img:hover{
+    opacity: 0.8;
+}
+
+.social-links__item img:focus{
+    opacity: 1;
 }
 
 @media screen and ( max-width: 1280px ) {
@@ -252,32 +288,25 @@ Projekt graficzny zakłada, że każda sekcja strony będzie wypełniać całą 
 lub więcej, jeśli zawartość danej sekcji jest wyższa. Dlatego świetnym rozwiązaniem
 będzie użycie jednostki "vh", która oznacza 1% wysokości okna przeglądarki z właściwością "min-height",
 która wymusza wysokość elementu na zadaną wartość lub wyższą.
-
 Następnie sekcje zostają zdefiniowane jako kontener flexbox (display: flex) co pozwala
 na większą kontrolę nad zachowaniem elementów wewnątrz.
 Zakładamy, ze każda sekcja strony ma bazową strukturę w formacie:
-
     <section class="content-section">
         <h2 class="content-section__header">{nagłówek sekcji}</h2>
         <div class="content-section__body">
             {zawartość sekcji}
         </div>
     </section>
-
 Ustawienie wartości flex-direction na "column" sprawia, że wszystkie elementy umieszczone
 bezpośrednio w "content-section" (czyli "content-section__header" oraz "content-section__body")
 będą ułożone jedno pod drugim.
-
 Pole "justify-content" definiuje ułożenie elementów wewnątrz kontenera wzdłuż jego osi
 (dla "flex-direction: column" jest to oś pionowa, dla "flex-direction: row" - oś pozioma).
 W naszym przypadku ustawiamy wartość "center", czyli wyśrodkowujemy elementy w pionie.
-
 "Align-items" działa podobnie do powyższego, ale ustawia elementy w osi prostopadłej do kierunku flex-direction.
 Ponadto tak samo faktyczny kierunek uzależniony jest od flex-direction.
-
 Wartość flex-grow: 1 na elemencie "content-section__body" sprawia, że będzie się on rozrastał
 zajmując puste miejsce niezajęte przez sąsiadujące mu elementy.
-
 Więcej szczegółów na temat działania Flexbox można znaleźć na: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
 */
 .content-section {
@@ -324,13 +353,36 @@ SEKCJA "HOME"
     align-items: center;
 }
 
-/*
-Tymczasowo ukrywamy tę sekcję, zajmiemy się nią na następnych zajęciach.
-*/
-.band-members__name,
+.band-members__image {
+    opacity: 0.6;
+    transition: all 0.7s ease-in-out;
+}
+
+.band-members__name {
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    opacity: 0;
+    transition: all 0.7s ease-in-out;
+}
+
+
 .band-members__desc {
-    display: none;
-    margin: 0;
+    opacity: 0.6;
+    letter-spacing: 3px;
+    opacity: 0;
+    transition: all 0.7s ease-in-out;
+}
+
+.band-members__item:hover .band-members__image {
+    opacity: 1.0;
+}
+
+.band-members__item:hover .band-members__name {
+    opacity: 0.8;
+}
+
+.band-members__item:hover .band-members__desc {
+    opacity: 0.6;
 }
 
 @media screen and ( min-width: 1025px ) and ( max-width: 1280px ) {
@@ -367,14 +419,11 @@ SEKCJA "ABOUT"
 Wykorzystuje ona właściwość elementów z "position: absolute", których położenie jest ustalane
 względem najbliższego mu rodzica, który jest pozycjonowany (ma ustawione "position" na inne
 niż "static", czyli "absolute", "relative", "fixed" lub "sticky").
-
 Dlatego gdy na jego rodzica "about" ustawimy "position: relative" (które bez parametrów
 dodatkowych top, left, bottom, right, nic nie zmienia w jego pozycji), to zawarty w nim
 element "about__desc" ustawia się absolutnie względem niego.
-
 Gdy dodamy wartości "left: -290px" i "bottom: -115px", wtedy "about__desc" będzie wystawać
 z lewego dolnego rogu "about" dokładnie o te odległości.
-
 Natomiast aby nie dopuścić do sytuacji, że wystający "about__desc" nachodził
 na sąsiadujące sekcje na stronie, nadajemy "about" marginesy adekwatne do odległości
 podane przy pozycjonowaniu "about_desc".
@@ -516,6 +565,11 @@ SEKCJA "PHOTOS"
 .gallery__image {
     max-width: 100%;
     border-top: 3px solid #EF008E;
+    transition: all 0.4s ease-in;
+}
+
+.gallery__image:hover {
+    transform: scale(1.1);
 }
 
 @media screen and ( max-width: 1024px ) {
